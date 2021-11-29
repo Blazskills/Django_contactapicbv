@@ -34,20 +34,29 @@ INSTALLED_APPS = [
     'authentication',
     'contacts',
     'rest_framework',
+    'corsheaders'
 ]
 AUTH_USER_MODEL = 'authentication.User'
 # JWT
 # JWT_SECRET_KEY=os.environ.get('JWT_SECRET_KEY')
-JWT_SECRET_KEY="JWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEY"
+JWT_SECRET_KEY = "JWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEY"
 
-REST_FRAMEWORK={
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'authentication.backends.JWTAuthentication',
     )
 }
-SWAGGER_SETTINGS={
-    'SECURITY_DEFINITIONS':{
-        "Auth Token e.g [Bearer (JWT)]":{
+# Cors
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8000",
+    "http://localhost:8080",
+
+]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        "Auth Token e.g [Bearer (JWT)]": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
@@ -62,6 +71,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # added addon
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'contactsapi.urls'
@@ -96,8 +108,6 @@ DATABASES = {
 }
 
 
-
-
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql_psycopg2",
@@ -108,7 +118,6 @@ DATABASES = {
 #         'PORT': '5432'
 #     }
 # }
-
 
 
 # Password validation
